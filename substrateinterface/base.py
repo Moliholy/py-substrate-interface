@@ -1639,6 +1639,11 @@ class SubstrateInterface:
                         'finalized': True
                     }
                 elif 'inBlock' in result['params']['result'] and wait_for_inclusion and not wait_for_finalization:
+                    subscription_id = result['params']['subscription']
+                    self.rpc_request(
+                        'author_unwatchExtrinsic',
+                        [subscription_id]
+                    )
                     return {
                         'block_hash': result['params']['result']['inBlock'],
                         'extrinsic_hash': '0x{}'.format(extrinsic.extrinsic_hash),
